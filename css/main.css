@@ -1,0 +1,11 @@
+nav {
+    font-family: monospace;
+}
+
+div {
+    background-color: blue;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    height: 150px;
+}
