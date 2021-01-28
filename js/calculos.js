@@ -26,8 +26,5 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 ¿como saber si termino la jugada?
     llevar un contador de aciertos. Si la cantidad de aciertos === 8 significa que completó todos los pares y mostrar mensaje de éxito
 
-
-
-
 */
 
