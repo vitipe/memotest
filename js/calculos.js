@@ -28,3 +28,52 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 
 */
 
+let jugadaUsuario = [];
+
+function bloquearTablero() {
+
+}
+
+function desbloquearTablero() {
+
+}
+
+function mostrarImagenCuadro() {
+
+}
+
+function ocultarImagenCuadro() {
+
+}
+
+function chequearJugadaUsuario() {
+
+}
+
+function generarTableroRandom() {
+    let VERDURAS = {
+        tomate: 'link a tomate',
+        zapallo: 'link a zapallo',
+        maiz: 'link a maiz',
+        acelga: 'link a acelga',
+        albahaca: 'link a albahaca',
+        morron: 'link a morron',
+        berenjena: 'link a berenjena',
+        lechuga: 'link a lechuga'
+    }
+    
+
+}
+
+function contadorTiempoJuego() {
+
+}
+
+function contadorIntentosUsuario() {
+
+}
+
+function contadorVictoriasUsuario() {
+    
+}
+
