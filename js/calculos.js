@@ -1,4 +1,10 @@
 /*
+
+La idea es usar estrategias como las de Fabri en su simon. Ver como integrarlas acá:
+-function vacia para bloquear la jugada del usuario
+-e.target para manejar los clicks del input de usuario
+
+
 Pseudo-code:
 
 -----------------------------
@@ -31,53 +37,83 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 let jugadaUsuario = [];
 
 function bloquearTablero() {
-    document.querySelectorAll('.cuadros').forEach(function($cuadro) {
+    document.querySelectorAll('.cuadro').forEach(function($cuadro) {
         $cuadro.onclick = function() {
-            
         }
     });
 };
 
 function desbloquearTablero() {
-
-}
+    document.querySelectorAll('.cuadro').forEach(function($cuadro) {
+        $cuadro.onclick = manejarInputUsuario;
+    });
+};
 
 function mostrarImagenCuadro() {
-
+    //agrega un <img src="images/zapallo.jpg" class="img-fluid"> como textContent del cuadro? y transition
 }
 
-function ocultarImagenCuadro() {
-
+function ocultarCuadroResuelto() {
+    //agregar el .oculto, o directamente borrar el div al carajo?
 }
 
-function chequearJugadaUsuario() {
+function manejarInputUsuario(e) {
+    let $cuadroClickeado = e.target;
+    mostrarImagenCuadro($cuadroClickeado);
+    //Pushear cuadriclickeado
+}
 
+function obtenerVerduraAleatoria() {
+    let VERDURAS = {
+        tomate: "images/tomate.jpg",
+        zapallo: "images/zapallo.jpg",
+        maiz: "images/maiz.jpg",
+        acelga: "images/acelga.jpg",
+        albahaca: "images/albahaca.jpg",
+        morron: "images/morron.jpg",
+        berenjena: "images/berenjena.jpg",
+        lechuga: "images/lechuga.jpg"
+    }
+
+    //tengo que iterar sobre los keys
+    let values = Object.values(VERDURAS);
+    let numeroRandom = Math.ceil(Math.random() * values.length)
+
+    return values[numeroRandom];
+}
+
+function obtenerCuadroAleatorio() {
+    let cuadrosTablero = document.querySelectorAll('.cuadro');
+    let cuadroAleatorio = Math.ceil(Math.random() * cuadrosTablero.length);
+
+    return cuadroAleatorio;
 }
 
 function generarTableroRandom() {
-    let VERDURAS = {
-        tomate: 'link a tomate',
-        zapallo: 'link a zapallo',
-        maiz: 'link a maiz',
-        acelga: 'link a acelga',
-        albahaca: 'link a albahaca',
-        morron: 'link a morron',
-        berenjena: 'link a berenjena',
-        lechuga: 'link a lechuga'
-    }
-    let cuadrosTablero = document.querySelectorAll('.cuadro');
-
+    
+    obtenerVerduraAleatoria();
+    obtenerCuadroAleatorio();
+    //Aca probablemetne tendría que hacer que por cada asignación se asigne dos veces, y que borre ese key del objeto.
 }
 
 function contadorTiempoJuego() {
-
+    //Al hacer click en jugar comenzar el contador, finaliza cuando se agotan los cuadros.
 }
 
 function contadorIntentosUsuario() {
-
+    //If errorJugada contador++
 }
 
 function contadorVictoriasUsuario() {
-    
+    //Tendre que ir eliminando los divs? y que cuando el length de querySelectorAll(.cuadros) sea 0 contar 1 victoria
 }
 
+function mostrarVictoria() {
+
+}
+
+document.querySelector('#boton-jugar').onclick = function() {
+    generarTableroRandom();
+    contadorTiempoJuego();
+    contadorIntentosUsuario();
+}

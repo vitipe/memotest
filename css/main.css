@@ -9,3 +9,8 @@ nav {
     border-style: solid;
     height: 150px;
 }
+
+.oculto {
+    display: none;
+    transition: display, 200;
+}
