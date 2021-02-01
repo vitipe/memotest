@@ -2,7 +2,7 @@ nav {
     font-family: monospace;
 }
 
-div {
+.col-sm {
     background-color: blue;
     border-width: 1px;
     border-color: black;

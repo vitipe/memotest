@@ -31,8 +31,12 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 let jugadaUsuario = [];
 
 function bloquearTablero() {
-
-}
+    document.querySelectorAll('.cuadros').forEach(function($cuadro) {
+        $cuadro.onclick = function() {
+            
+        }
+    });
+};
 
 function desbloquearTablero() {
 
@@ -61,7 +65,7 @@ function generarTableroRandom() {
         berenjena: 'link a berenjena',
         lechuga: 'link a lechuga'
     }
-    
+    let cuadrosTablero = document.querySelectorAll('.cuadro');
 
 }
 
