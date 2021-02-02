@@ -36,6 +36,9 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 
 let jugadaUsuario = [];
 
+bloquearTablero();
+
+
 function bloquearTablero() {
     document.querySelectorAll('.cuadro').forEach(function($cuadro) {
         $cuadro.onclick = function() {
@@ -49,7 +52,8 @@ function desbloquearTablero() {
     });
 };
 
-function mostrarImagenCuadro() {
+function mostrarImagenCuadro($cuadroClickeado) {
+    $cuadroClickeado.className = "cuadro oculto";
     //agrega un <img src="images/zapallo.jpg" class="img-fluid"> como textContent del cuadro? y transition
 }
 
@@ -60,6 +64,7 @@ function ocultarCuadroResuelto() {
 function manejarInputUsuario(e) {
     let $cuadroClickeado = e.target;
     mostrarImagenCuadro($cuadroClickeado);
+    jugadaUsuario.push($cuadroClickeado);
     //Pushear cuadriclickeado
 }
 
@@ -77,23 +82,22 @@ function obtenerVerduraAleatoria() {
 
     //tengo que iterar sobre los keys
     let values = Object.values(VERDURAS);
-    let numeroRandom = Math.ceil(Math.random() * values.length)
+    let numeroRandom = Math.floor(Math.random() * values.length)
 
     return values[numeroRandom];
 }
 
-function obtenerCuadroAleatorio() {
-    let cuadrosTablero = document.querySelectorAll('.cuadro');
-    let cuadroAleatorio = Math.ceil(Math.random() * cuadrosTablero.length);
-
-    return cuadroAleatorio;
-}
-
 function generarTableroRandom() {
-    
-    obtenerVerduraAleatoria();
-    obtenerCuadroAleatorio();
+    let cuadrosTablero = document.querySelectorAll('.cuadro');
+    cuadrosTablero.forEach(function(cuadro) {
+        let imgVerdura = document.createElement('img');
+        imgVerdura.src = obtenerVerduraAleatoria();
+        imgVerdura.className = 'img-fluid';
+        cuadro.appendChild(imgVerdura);
+        console.log(cuadro.value + imgVerdura.src)
+    })
     //Aca probablemetne tendría que hacer que por cada asignación se asigne dos veces, y que borre ese key del objeto.
+    //La otra aca es ya tener los <img> creados y solo asignar el .src, decidir cual conviene
 }
 
 function contadorTiempoJuego() {
