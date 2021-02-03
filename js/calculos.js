@@ -48,6 +48,9 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 */
 
 let jugadaUsuario = [];
+let $jugadaUsuario = [];
+let CONTADOR_INTENTOS = 0;
+let CUADROS_TABLERO = 16;
 
 bloquearTablero();
 
@@ -57,7 +60,6 @@ document.querySelector('#boton-jugar').onclick = function() {
     contadorIntentosUsuario();
     desbloquearTablero();
 }
-
 
 function bloquearTablero() {
     document.querySelectorAll('.cuadro').forEach(function($cuadro) {
@@ -72,24 +74,30 @@ function desbloquearTablero() {
     });
 };
 
-// function() {
-//     document.querySelectorAll('img').forEach(function(imgVerdura) {
-//         imgVerdura.className = 'img-fluid en-juego';
-
 function mostrarImagenCuadro($imagenClickeada) {
     $imagenClickeada.className = "img-fluid en-juego";
     //agrega un <img src="images/zapallo.jpg" class="img-fluid"> como textContent del cuadro? y transition
 }
 
-function ocultarCuadroResuelto() {
-    //agregar el .oculto, o directamente borrar el div al carajo?
+function ocultarImagenCuadro() {
+    $jugadaUsuario.forEach(function($imagenClickeada){
+        $imagenClickeada.className = "img-fluid oculto";
+    })
+}
+
+function ocultarCuadrosResueltos() {
+    jugadaUsuario.forEach(function(cuadroClickeado) {
+        cuadroClickeado.src = "images/acierto.jpg";
+    })
 }
 
 function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
     mostrarImagenCuadro($imagenClickeada);
-    jugadaUsuario.push($imagenClickeada);
-    //Pushear cuadriclickeado
+    jugadaUsuario.push($imagenClickeada.src);
+    $jugadaUsuario.push($imagenClickeada);
+    manejarJugada(jugadaUsuario);
+    console.log(jugadaUsuario);
 }
 
 function obtenerVerduraAleatoria() {
@@ -118,7 +126,6 @@ function generarTableroRandom() {
         imgVerdura.src = obtenerVerduraAleatoria();
         imgVerdura.className = 'img-fluid oculto';
         cuadro.appendChild(imgVerdura);
-        console.log(cuadro.value + imgVerdura.src)
     })
     //Aca probablemetne tendría que hacer que por cada asignación se asigne dos veces, y que borre ese key del objeto.
     //La otra aca es ya tener los <img> creados y solo asignar el .src, decidir cual conviene
@@ -137,5 +144,39 @@ function contadorVictoriasUsuario() {
 }
 
 function mostrarVictoria() {
+
+}
+
+function aciertoJugada() {
+    jugadaUsuario = [];
+    CONTADOR_INTENTOS = 0;
+    ocultarCuadrosResueltos();
+    CUADROS_TABLERO = CUADROS_TABLERO - 2;
+    desbloquearTablero();
+}
+
+function errorJugada() {
+    jugadaUsuario = [];
+    CONTADOR_INTENTOS++;
+    ocultarImagenCuadro();
+    desbloquearTablero();
+}
+
+function manejarJugada() {
+    if (jugadaUsuario.length === 2) {
+        bloquearTablero();
+
+        if (jugadaUsuario[0] === jugadaUsuario[1]){
+            setTimeout(aciertoJugada, 500);
+
+            if (CUADROS_TABLERO === 0){
+                document.querySelector('#titulo').textContent = "GANASTE! :D"
+            }
+        } else{
+            setTimeout(errorJugada, 500);
+        }
+    } else {
+        return;
+    }
 
 }
