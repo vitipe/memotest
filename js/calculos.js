@@ -32,11 +32,31 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 ¿como saber si termino la jugada?
     llevar un contador de aciertos. Si la cantidad de aciertos === 8 significa que completó todos los pares y mostrar mensaje de éxito
 
+
+
+    Alto nivel (visual)
+
+    Hago click en JUGAR:
+        Se completa el tablero con imágenes random
+        Arranca el contador de tiempo
+        Se oculta el boton
+    
+    Hago click en un cuadrito:
+        Se muestra la imagen de la verdura
+    
+
 */
 
 let jugadaUsuario = [];
 
 bloquearTablero();
+
+document.querySelector('#boton-jugar').onclick = function() {
+    generarTableroRandom();
+    contadorTiempoJuego();
+    contadorIntentosUsuario();
+    desbloquearTablero();
+}
 
 
 function bloquearTablero() {
@@ -52,8 +72,12 @@ function desbloquearTablero() {
     });
 };
 
-function mostrarImagenCuadro($cuadroClickeado) {
-    $cuadroClickeado.className = "cuadro oculto";
+// function() {
+//     document.querySelectorAll('img').forEach(function(imgVerdura) {
+//         imgVerdura.className = 'img-fluid en-juego';
+
+function mostrarImagenCuadro($imagenClickeada) {
+    $imagenClickeada.className = "img-fluid en-juego";
     //agrega un <img src="images/zapallo.jpg" class="img-fluid"> como textContent del cuadro? y transition
 }
 
@@ -62,9 +86,9 @@ function ocultarCuadroResuelto() {
 }
 
 function manejarInputUsuario(e) {
-    let $cuadroClickeado = e.target;
-    mostrarImagenCuadro($cuadroClickeado);
-    jugadaUsuario.push($cuadroClickeado);
+    $imagenClickeada = e.target;
+    mostrarImagenCuadro($imagenClickeada);
+    jugadaUsuario.push($imagenClickeada);
     //Pushear cuadriclickeado
 }
 
@@ -92,7 +116,7 @@ function generarTableroRandom() {
     cuadrosTablero.forEach(function(cuadro) {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria();
-        imgVerdura.className = 'img-fluid';
+        imgVerdura.className = 'img-fluid oculto';
         cuadro.appendChild(imgVerdura);
         console.log(cuadro.value + imgVerdura.src)
     })
@@ -114,10 +138,4 @@ function contadorVictoriasUsuario() {
 
 function mostrarVictoria() {
 
-}
-
-document.querySelector('#boton-jugar').onclick = function() {
-    generarTableroRandom();
-    contadorTiempoJuego();
-    contadorIntentosUsuario();
 }
