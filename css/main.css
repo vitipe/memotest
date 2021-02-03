@@ -11,5 +11,11 @@ nav {
 }
 
 .oculto {
-    display: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.en-juego {
+    opacity: 100;
+    transition: opacity 0.5s;
 }
