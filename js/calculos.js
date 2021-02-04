@@ -51,6 +51,25 @@ let jugadaUsuario = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
+let VERDURAS = {
+    tomate: "images/tomate.jpg",
+    zapallo: "images/zapallo.jpg",
+    maiz: "images/maiz.jpg",
+    acelga: "images/acelga.jpg",
+    albahaca: "images/albahaca.jpg",
+    morron: "images/morron.jpg",
+    berenjena: "images/berenjena.jpg",
+    lechuga: "images/lechuga.jpg",
+    tomate2: "images/tomate.jpg",
+    zapallo2: "images/zapallo.jpg",
+    maiz2: "images/maiz.jpg",
+    acelga2: "images/acelga.jpg",
+    albahaca2: "images/albahaca.jpg",
+    morron2: "images/morron.jpg",
+    berenjena2: "images/berenjena.jpg",
+    lechuga2: "images/lechuga.jpg"
+}
+let values = Object.values(VERDURAS);
 
 bloquearTablero();
 
@@ -99,23 +118,12 @@ function manejarInputUsuario(e) {
     manejarJugada(jugadaUsuario);
 }
 
-function obtenerVerduraAleatoria() {
-    let VERDURAS = {
-        tomate: "images/tomate.jpg",
-        zapallo: "images/zapallo.jpg",
-        maiz: "images/maiz.jpg",
-        acelga: "images/acelga.jpg",
-        albahaca: "images/albahaca.jpg",
-        morron: "images/morron.jpg",
-        berenjena: "images/berenjena.jpg",
-        lechuga: "images/lechuga.jpg"
-    }
-
-    //tengo que iterar sobre los keys
-    let values = Object.values(VERDURAS);
+function obtenerVerduraAleatoria() {    
     let numeroRandom = Math.floor(Math.random() * values.length)
+    let verduraAleatoria = values.splice(numeroRandom, 1)
+    console.log(values);
 
-    return values[numeroRandom];
+    return verduraAleatoria
 }
 
 function generarTableroRandom() {
@@ -123,6 +131,7 @@ function generarTableroRandom() {
     cuadrosTablero.forEach(function(cuadro) {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria();
+        console.log(imgVerdura.src);
         imgVerdura.className = 'img-fluid oculto';
         cuadro.appendChild(imgVerdura);
     })
@@ -145,6 +154,7 @@ function aciertoJugada() {
     desbloquearTablero();
     jugadaUsuario = [];
     $cuadrosEnJuego = [];
+    console.log(CUADROS_TABLERO);
 }
 
 function errorJugada() {
