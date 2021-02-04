@@ -48,7 +48,7 @@ Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y 
 */
 
 let jugadaUsuario = [];
-let $jugadaUsuario = [];
+let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
 
@@ -57,7 +57,6 @@ bloquearTablero();
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
     contadorTiempoJuego();
-    contadorIntentosUsuario();
     desbloquearTablero();
 }
 
@@ -80,13 +79,13 @@ function mostrarImagenCuadro($imagenClickeada) {
 }
 
 function ocultarImagenCuadro() {
-    $jugadaUsuario.forEach(function($imagenClickeada){
+    $cuadrosEnJuego.forEach(function($imagenClickeada){
         $imagenClickeada.className = "img-fluid oculto";
     })
 }
 
 function ocultarCuadrosResueltos() {
-    jugadaUsuario.forEach(function(cuadroClickeado) {
+    $cuadrosEnJuego.forEach(function(cuadroClickeado) {
         cuadroClickeado.src = "images/acierto.jpg";
     })
 }
@@ -95,9 +94,9 @@ function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
     mostrarImagenCuadro($imagenClickeada);
     jugadaUsuario.push($imagenClickeada.src);
-    $jugadaUsuario.push($imagenClickeada);
+    $cuadrosEnJuego.push($imagenClickeada);
+    // $imagenClickeada.style.pointerEvents = "none";
     manejarJugada(jugadaUsuario);
-    console.log(jugadaUsuario);
 }
 
 function obtenerVerduraAleatoria() {
@@ -135,31 +134,25 @@ function contadorTiempoJuego() {
     //Al hacer click en jugar comenzar el contador, finaliza cuando se agotan los cuadros.
 }
 
-function contadorIntentosUsuario() {
-    //If errorJugada contador++
-}
-
-function contadorVictoriasUsuario() {
-    //Tendre que ir eliminando los divs? y que cuando el length de querySelectorAll(.cuadros) sea 0 contar 1 victoria
-}
-
 function mostrarVictoria() {
 
 }
 
 function aciertoJugada() {
-    jugadaUsuario = [];
     CONTADOR_INTENTOS = 0;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
     desbloquearTablero();
+    jugadaUsuario = [];
+    $cuadrosEnJuego = [];
 }
 
 function errorJugada() {
-    jugadaUsuario = [];
     CONTADOR_INTENTOS++;
     ocultarImagenCuadro();
     desbloquearTablero();
+    jugadaUsuario = [];
+    $cuadrosEnJuego = [];
 }
 
 function manejarJugada() {
