@@ -115,8 +115,9 @@ function manejarInputUsuario(e) {
     jugadaUsuario.push($imagenClickeada.src);
     $cuadrosEnJuego.push($imagenClickeada);
     //acá ver como remover el event y después al finalizar el chequeo volver a asignarlo
-    $imagenClickeada.onclick = function() {
-    };
+    // $imagenClickeada.onclick = function() {
+    // };
+    console.log(jugadaUsuario);
     manejarJugada(jugadaUsuario);
 }
 
@@ -133,6 +134,7 @@ function generarTableroRandom() {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria();
         imgVerdura.className = 'img-fluid oculto';
+        imgVerdura.draggable = false; //LOCURA
         cuadro.appendChild(imgVerdura);
     })
 }
@@ -183,8 +185,7 @@ function manejarJugada() {
         } else{
             setTimeout(errorJugada, 500);
         }
-        $cuadrosEnJuego[0].onclick = manejarInputUsuario;
-        $cuadrosEnJuego[1].onclick = manejarInputUsuario;
+        // $cuadrosEnJuego[0].onclick = manejarInputUsuario;
+        // $cuadrosEnJuego[1].onclick = manejarInputUsuario;
     }
-    //acá devolver el event a los img
 }
