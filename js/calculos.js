@@ -51,7 +51,7 @@ let jugadaUsuario = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
-let VERDURAS = {
+let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acumulando los que ya se jugaron en otra matriz
     tomate: "images/tomate.jpg",
     zapallo: "images/zapallo.jpg",
     maiz: "images/maiz.jpg",
@@ -75,7 +75,7 @@ bloquearTablero();
 
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
-    contadorTiempoJuego();
+    // contadorTiempoJuego();
     desbloquearTablero();
 }
 
@@ -114,14 +114,15 @@ function manejarInputUsuario(e) {
     mostrarImagenCuadro($imagenClickeada);
     jugadaUsuario.push($imagenClickeada.src);
     $cuadrosEnJuego.push($imagenClickeada);
-    // $imagenClickeada.style.pointerEvents = "none";
+    //acá ver como remover el event y después al finalizar el chequeo volver a asignarlo
+    $imagenClickeada.onclick = function() {
+    };
     manejarJugada(jugadaUsuario);
 }
 
 function obtenerVerduraAleatoria() {    
     let numeroRandom = Math.floor(Math.random() * values.length)
     let verduraAleatoria = values.splice(numeroRandom, 1)
-    console.log(values);
 
     return verduraAleatoria
 }
@@ -131,38 +132,42 @@ function generarTableroRandom() {
     cuadrosTablero.forEach(function(cuadro) {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria();
-        console.log(imgVerdura.src);
         imgVerdura.className = 'img-fluid oculto';
         cuadro.appendChild(imgVerdura);
     })
-    //Aca probablemetne tendría que hacer que por cada asignación se asigne dos veces, y que borre ese key del objeto.
-    //La otra aca es ya tener los <img> creados y solo asignar el .src, decidir cual conviene
 }
 
-function contadorTiempoJuego() {
-    //Al hacer click en jugar comenzar el contador, finaliza cuando se agotan los cuadros.
-}
+// function contadorTiempoJuego() {
+//     //Al hacer click en jugar comenzar el contador, finaliza cuando se agotan los cuadros.
+//     let $tiempoJuego = document.querySelector('#tiempo-juego');
+
+//     while (CUADROS_TABLERO > 0) {
+//         setTimeout
+//     }
+// }
 
 function mostrarVictoria() {
+    //poner la clase de alert verde de bootstrap
+    document.querySelector('#titulo').textContent = "GANASTE! :D"
+}
 
+function resetearMovimiento() {
+    jugadaUsuario = [];
+    $cuadrosEnJuego = [];
+    desbloquearTablero();
 }
 
 function aciertoJugada() {
     CONTADOR_INTENTOS = 0;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
-    desbloquearTablero();
-    jugadaUsuario = [];
-    $cuadrosEnJuego = [];
-    console.log(CUADROS_TABLERO);
+    resetearMovimiento();
 }
 
 function errorJugada() {
     CONTADOR_INTENTOS++;
     ocultarImagenCuadro();
-    desbloquearTablero();
-    jugadaUsuario = [];
-    $cuadrosEnJuego = [];
+    resetearMovimiento();
 }
 
 function manejarJugada() {
@@ -173,13 +178,13 @@ function manejarJugada() {
             setTimeout(aciertoJugada, 500);
 
             if (CUADROS_TABLERO === 0){
-                document.querySelector('#titulo').textContent = "GANASTE! :D"
+                  mostrarVictoria();//NO ANDA, WHY
             }
         } else{
             setTimeout(errorJugada, 500);
         }
-    } else {
-        return;
+        $cuadrosEnJuego[0].onclick = manejarInputUsuario;
+        $cuadrosEnJuego[1].onclick = manejarInputUsuario;
     }
-
+    //acá devolver el event a los img
 }
