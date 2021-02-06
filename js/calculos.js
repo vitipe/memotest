@@ -73,6 +73,7 @@ let values = Object.values(VERDURAS);
 
 bloquearTablero();
 
+
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
     // contadorTiempoJuego();
@@ -86,8 +87,15 @@ function bloquearTablero() {
     });
 };
 
+function bloquearCuadro() {
+    document.querySelectorAll('.en-juego').forEach(function($cuadro) {
+        $cuadro.onclick = function () {
+        };
+    });
+};
+
 function desbloquearTablero() {
-    document.querySelectorAll('.cuadro').forEach(function($cuadro) {
+    document.querySelectorAll('.img-fluid').forEach(function($cuadro) {
         $cuadro.onclick = manejarInputUsuario;
     });
 };
@@ -114,11 +122,7 @@ function manejarInputUsuario(e) {
     mostrarImagenCuadro($imagenClickeada);
     jugadaUsuario.push($imagenClickeada.src);
     $cuadrosEnJuego.push($imagenClickeada);
-    //acá ver como remover el event y después al finalizar el chequeo volver a asignarlo
-    // $imagenClickeada.onclick = function() {
-    // };
-    console.log(jugadaUsuario);
-    manejarJugada(jugadaUsuario);
+    manejarJugada();
 }
 
 function obtenerVerduraAleatoria() {    
@@ -134,7 +138,7 @@ function generarTableroRandom() {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria();
         imgVerdura.className = 'img-fluid oculto';
-        imgVerdura.draggable = false; //LOCURA
+        imgVerdura.draggable = false;
         cuadro.appendChild(imgVerdura);
     })
 }
@@ -153,7 +157,7 @@ function mostrarVictoria() {
     document.querySelector('#titulo').textContent = "GANASTE! :D"
 }
 
-function resetearMovimiento() {
+function resetearJugada() {
     jugadaUsuario = [];
     $cuadrosEnJuego = [];
     desbloquearTablero();
@@ -163,16 +167,18 @@ function aciertoJugada() {
     CONTADOR_INTENTOS = 0;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
-    resetearMovimiento();
+    resetearJugada();
 }
 
 function errorJugada() {
     CONTADOR_INTENTOS++;
     ocultarImagenCuadro();
-    resetearMovimiento();
+    resetearJugada();
 }
 
 function manejarJugada() {
+    bloquearCuadro();
+
     if (jugadaUsuario.length === 2) {
         bloquearTablero();
 
@@ -185,7 +191,5 @@ function manejarJugada() {
         } else{
             setTimeout(errorJugada, 500);
         }
-        // $cuadrosEnJuego[0].onclick = manejarInputUsuario;
-        // $cuadrosEnJuego[1].onclick = manejarInputUsuario;
     }
 }
