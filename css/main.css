@@ -19,3 +19,8 @@ nav {
     opacity: 100;
     transition: opacity 0.5s;
 }
+
+.img-fluid {
+    height: 150px;
+    width: 100%;
+}

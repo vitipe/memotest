@@ -25,11 +25,20 @@ let values = Object.values(VERDURAS);
 bloquearTablero();
 
 
+
+
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
     contadorTiempoJuego();
+    contadorIntentos();
     desbloquearTablero();
 }
+
+function contadorIntentos() {
+    document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
+}
+
+
 
 function bloquearTablero() {
     document.querySelectorAll('.cuadro').forEach(function($cuadro) {
@@ -102,40 +111,39 @@ function contadorTiempoJuego() {
     let SEGUNDOS = 0;
     let MINUTOS = 0;
 
-    function sumarSegundos() {
-        SEGUNDOS++;
-        
-        if (SEGUNDOS === 60) {
-            SEGUNDOS = 0;
-            MINUTOS++;
+    function sumarSegundos() { //Creo que quedó medio fiero pero anda
+        if (CUADROS_TABLERO > 0) {
+            SEGUNDOS++;
+            
+            if (SEGUNDOS === 60) {
+                SEGUNDOS = 0;
+                MINUTOS++;
+            }
+            
+            if (SEGUNDOS.toString().length === 1) {
+                SEGUNDOS = `0${SEGUNDOS}`
+            }
+    
+            if (MINUTOS.toString().length === 1) {
+                MINUTOS = `0${MINUTOS}`
+            }
+    
+            $tiempoJuego.textContent = `${MINUTOS}:${SEGUNDOS}`
         }
-        
-        if (SEGUNDOS.toString().length === 1) {
-            SEGUNDOS = `0${SEGUNDOS}`
-        }
-
-        if (MINUTOS.toString().length === 1) {
-            MINUTOS = `0${MINUTOS}`
-        }
-
-        $tiempoJuego.textContent = `${MINUTOS}:${SEGUNDOS}`
-        
     }
+     let sumarSegundosID = setInterval(sumarSegundos, 1000);
 
-    setInterval(sumarSegundos, 1000);
+}
 
-    if (CUADROS_TABLERO === 0) {
-        
-    }
-        
+function frenarTiempoJuego(sumarSegundosID) {
+    clearInterval(sumarSegundosID);
 }
 
 function mostrarVictoria() {
     //poner la clase de alert verde de bootstrap
     document.querySelector('#titulo').textContent = "GANASTE! :D"
-    //Frenar el reloj acá
-    //Mostrar la cantidad de intentos totales
 }
+
 
 function resetearJugada() {
     verduraJugada = [];
@@ -144,21 +152,23 @@ function resetearJugada() {
 }
 
 function aciertoJugada() {
-    CONTADOR_INTENTOS = 0;
+    // CONTADOR_INTENTOS = 0;
+    CONTADOR_INTENTOS++;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
     
     if (CUADROS_TABLERO === 0){
-        mostrarVictoria();//NO ANDA, WHY
-        //Detener el reloj
+        mostrarVictoria();
+        frenarTiempoJuego();
     }
-
+    contadorIntentos();
     resetearJugada();
 }
 
 function errorJugada() {
     CONTADOR_INTENTOS++;
     ocultarImagenCuadro();
+    contadorIntentos();
     resetearJugada();
 }
 
@@ -169,7 +179,7 @@ function manejarJugada() {
         bloquearTablero();
 
         if (verduraJugada[0] === verduraJugada[1]){
-            setTimeout(aciertoJugada, 500);
+            setTimeout(aciertoJugada, 100);
 
             
         } else{
