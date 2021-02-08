@@ -1,53 +1,5 @@
-/*
 
-La idea es usar estrategias como las de Fabri en su simon. Ver como integrarlas acá:
--function vacia para bloquear la jugada del usuario
--e.target para manejar los clicks del input de usuario
-
-
-Pseudo-code:
-
------------------------------
-Estructura:
-Header
-Boton jugar
-Grilla de 4x4
-Contador de tiempo
-Contador de aciertos
------------------------------
-
-Arrancar con todos los cuadritos bloqueados
-Al hacer click en jugar
-    asignar una imagen random a cada cuadro. Tiene que existir siempre 1 par de imagenes.
-    O sea, para 16 cuadritos (4x4) tienen que ser 8 imágenes de a pares asignadas random.
-        (para esto un objeto con todos los href y valores a las imagenes y que asigne random de ese objeto?)
-    desbloquear cuadros
-
-Al hacer click en un cuadrito, pushear ese valor ¿clase? a un array vacío.
-    el cuadrito debe tener una transition para mostrar la imagen que haya atrás
-Al hacer click en otro cuadrito (if array.length === 2) chequear que array[0] y array[1] sean iguales y mientras bloquear los cuadritos
-    Si no son iguales, resetear los arrays
-    Si son iguales, ocultar esos cuadritos y sumar 1 acierto.
-
-¿como saber si termino la jugada?
-    llevar un contador de aciertos. Si la cantidad de aciertos === 8 significa que completó todos los pares y mostrar mensaje de éxito
-
-
-
-    Alto nivel (visual)
-
-    Hago click en JUGAR:
-        Se completa el tablero con imágenes random
-        Arranca el contador de tiempo
-        Se oculta el boton
-    
-    Hago click en un cuadrito:
-        Se muestra la imagen de la verdura
-    
-
-*/
-
-let jugadaUsuario = [];
+let verduraJugada = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
@@ -70,13 +22,12 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
     lechuga2: "images/lechuga.jpg"
 }
 let values = Object.values(VERDURAS);
-
 bloquearTablero();
 
 
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
-    // contadorTiempoJuego();
+    contadorTiempoJuego();
     desbloquearTablero();
 }
 
@@ -114,13 +65,16 @@ function ocultarImagenCuadro() {
 function ocultarCuadrosResueltos() {
     $cuadrosEnJuego.forEach(function(cuadroClickeado) {
         cuadroClickeado.src = "images/acierto.jpg";
+        cuadroClickeado.onclick = function() {
+
+        }
     })
 }
 
 function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
     mostrarImagenCuadro($imagenClickeada);
-    jugadaUsuario.push($imagenClickeada.src);
+    verduraJugada.push($imagenClickeada.src);
     $cuadrosEnJuego.push($imagenClickeada);
     manejarJugada();
 }
@@ -143,22 +97,48 @@ function generarTableroRandom() {
     })
 }
 
-// function contadorTiempoJuego() {
-//     //Al hacer click en jugar comenzar el contador, finaliza cuando se agotan los cuadros.
-//     let $tiempoJuego = document.querySelector('#tiempo-juego');
+function contadorTiempoJuego() {
+    let $tiempoJuego = document.querySelector('#tiempo-juego');
+    let SEGUNDOS = 0;
+    let MINUTOS = 0;
 
-//     while (CUADROS_TABLERO > 0) {
-//         setTimeout
-//     }
-// }
+    function sumarSegundos() {
+        SEGUNDOS++;
+        
+        if (SEGUNDOS === 60) {
+            SEGUNDOS = 0;
+            MINUTOS++;
+        }
+        
+        if (SEGUNDOS.toString().length === 1) {
+            SEGUNDOS = `0${SEGUNDOS}`
+        }
+
+        if (MINUTOS.toString().length === 1) {
+            MINUTOS = `0${MINUTOS}`
+        }
+
+        $tiempoJuego.textContent = `${MINUTOS}:${SEGUNDOS}`
+        
+    }
+
+    setInterval(sumarSegundos, 1000);
+
+    if (CUADROS_TABLERO === 0) {
+        
+    }
+        
+}
 
 function mostrarVictoria() {
     //poner la clase de alert verde de bootstrap
     document.querySelector('#titulo').textContent = "GANASTE! :D"
+    //Frenar el reloj acá
+    //Mostrar la cantidad de intentos totales
 }
 
 function resetearJugada() {
-    jugadaUsuario = [];
+    verduraJugada = [];
     $cuadrosEnJuego = [];
     desbloquearTablero();
 }
@@ -167,6 +147,12 @@ function aciertoJugada() {
     CONTADOR_INTENTOS = 0;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
+    
+    if (CUADROS_TABLERO === 0){
+        mostrarVictoria();//NO ANDA, WHY
+        //Detener el reloj
+    }
+
     resetearJugada();
 }
 
@@ -179,15 +165,13 @@ function errorJugada() {
 function manejarJugada() {
     bloquearCuadro();
 
-    if (jugadaUsuario.length === 2) {
+    if (verduraJugada.length === 2) {
         bloquearTablero();
 
-        if (jugadaUsuario[0] === jugadaUsuario[1]){
+        if (verduraJugada[0] === verduraJugada[1]){
             setTimeout(aciertoJugada, 500);
 
-            if (CUADROS_TABLERO === 0){
-                  mostrarVictoria();//NO ANDA, WHY
-            }
+            
         } else{
             setTimeout(errorJugada, 500);
         }
