@@ -24,9 +24,6 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
 let values = Object.values(VERDURAS);
 bloquearTablero();
 
-
-
-
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
     contadorTiempoJuego();
@@ -37,8 +34,6 @@ document.querySelector('#boton-jugar').onclick = function() {
 function contadorIntentos() {
     document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
 }
-
-
 
 function bloquearTablero() {
     document.querySelectorAll('.cuadro').forEach(function($cuadro) {
@@ -68,14 +63,18 @@ function mostrarImagenCuadro($imagenClickeada) {
 function ocultarImagenCuadro() {
     $cuadrosEnJuego.forEach(function($imagenClickeada){
         $imagenClickeada.className = "img-fluid oculto";
+        
     })
 }
 
 function ocultarCuadrosResueltos() {
     $cuadrosEnJuego.forEach(function(cuadroClickeado) {
         cuadroClickeado.src = "images/acierto.jpg";
-        cuadroClickeado.onclick = function() {
-
+        cuadroClickeado.className = "cuadro-resuelto";
+    })
+    document.querySelectorAll('.cuadro-resuelto').forEach(function($cuadro) {
+        $cuadro.onclick = function() {
+            
         }
     })
 }
@@ -128,22 +127,16 @@ function contadorTiempoJuego() {
                 MINUTOS = `0${MINUTOS}`
             }
     
-            $tiempoJuego.textContent = `${MINUTOS}:${SEGUNDOS}`
+            $tiempoJuego.textContent = `Tiempo: ${MINUTOS}:${SEGUNDOS}`
         }
     }
-     let sumarSegundosID = setInterval(sumarSegundos, 1000);
-
-}
-
-function frenarTiempoJuego(sumarSegundosID) {
-    clearInterval(sumarSegundosID);
+    setInterval(sumarSegundos, 1000);
 }
 
 function mostrarVictoria() {
     //poner la clase de alert verde de bootstrap
     document.querySelector('#titulo').textContent = "GANASTE! :D"
 }
-
 
 function resetearJugada() {
     verduraJugada = [];
@@ -152,15 +145,14 @@ function resetearJugada() {
 }
 
 function aciertoJugada() {
-    // CONTADOR_INTENTOS = 0;
     CONTADOR_INTENTOS++;
     ocultarCuadrosResueltos();
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
     
     if (CUADROS_TABLERO === 0){
         mostrarVictoria();
-        frenarTiempoJuego();
     }
+
     contadorIntentos();
     resetearJugada();
 }
