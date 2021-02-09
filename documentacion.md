@@ -8,12 +8,12 @@
 
 
 ## TO-DO
-1. Que bloquee las imagenes acertadas también
-2. Si descubrís dos imagenes acertadas y clickeas rápido ponés más como acertadas. Arreglar eso.
-3. Que no asigne mas imagenes que los cuadros que hay, o directamente hacer desaperecer el boton jugar (ver que los hace invisibles)
-4. Agregar barrita de estado, verde cuando ganás (alerts en bootstrap)
-5. Sonido al hacer click en imagen
-6. 
+   
+1. 
+2. Que no asigne mas imagenes que los cuadros que hay, o directamente hacer desaperecer el boton jugar (ver que los hace invisibles)
+3. Agregar barrita de estado, verde cuando ganás (alerts en bootstrap)
+4. Sonido al hacer click en imagen
+5. 
 
 
 
@@ -26,3 +26,6 @@
 -Elemento HTML contador de intentos
 -Funcionalidad de contador de intentos
 -Frenar reloj al completar tablero(quedó medio fiero, arreglar como frenarlo con clearInterval)
+-Que bloquee las imagenes acertadas también
+-Si descubrís dos imagenes acertadas y clickeas rápido ponés más como acertadas. Arreglar eso. Lo mismo si no acertás. Es el setTimeout Seguro.
+-

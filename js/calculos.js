@@ -22,12 +22,12 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
     lechuga2: "images/lechuga.jpg"
 }
 let values = Object.values(VERDURAS);
+
 bloquearTablero();
 
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
     contadorTiempoJuego();
-    contadorIntentos();
     desbloquearTablero();
 }
 
@@ -45,6 +45,7 @@ function bloquearTablero() {
 function bloquearCuadro() {
     document.querySelectorAll('.en-juego').forEach(function($cuadro) {
         $cuadro.onclick = function () {
+
         };
     });
 };
@@ -57,7 +58,6 @@ function desbloquearTablero() {
 
 function mostrarImagenCuadro($imagenClickeada) {
     $imagenClickeada.className = "img-fluid en-juego";
-    //agrega un <img src="images/zapallo.jpg" class="img-fluid"> como textContent del cuadro? y transition
 }
 
 function ocultarImagenCuadro() {
@@ -81,10 +81,14 @@ function ocultarCuadrosResueltos() {
 
 function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
-    mostrarImagenCuadro($imagenClickeada);
-    verduraJugada.push($imagenClickeada.src);
-    $cuadrosEnJuego.push($imagenClickeada);
-    manejarJugada();
+    
+    if (verduraJugada.length < 2) {
+        mostrarImagenCuadro($imagenClickeada);
+        verduraJugada.push($imagenClickeada.src);
+        $cuadrosEnJuego.push($imagenClickeada);
+        manejarJugada();
+    }
+    
 }
 
 function obtenerVerduraAleatoria() {    
@@ -145,8 +149,8 @@ function resetearJugada() {
 }
 
 function aciertoJugada() {
-    CONTADOR_INTENTOS++;
     ocultarCuadrosResueltos();
+    CONTADOR_INTENTOS++;
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
     
     if (CUADROS_TABLERO === 0){
@@ -158,22 +162,19 @@ function aciertoJugada() {
 }
 
 function errorJugada() {
-    CONTADOR_INTENTOS++;
     ocultarImagenCuadro();
+    CONTADOR_INTENTOS++;
     contadorIntentos();
     resetearJugada();
 }
 
 function manejarJugada() {
     bloquearCuadro();
-
     if (verduraJugada.length === 2) {
         bloquearTablero();
 
         if (verduraJugada[0] === verduraJugada[1]){
-            setTimeout(aciertoJugada, 100);
-
-            
+            setTimeout(aciertoJugada, 500);
         } else{
             setTimeout(errorJugada, 500);
         }
