@@ -33,6 +33,8 @@ document.querySelector('#boton-jugar').onclick = function() {
     desbloquearTablero();
     ocultarBotonJugar();
 }
+let values = Object.values(VERDURAS);
+bloquearTablero();
 
 document.querySelector('#boton-resetear').onclick = function() {
     resetearTablero();
@@ -208,7 +210,6 @@ function resetearJugada() {
     verduraJugada = [];
     $cuadrosEnJuego = [];
     desbloquearTablero();
-    
 }
 
 function aciertoJugada() {
@@ -233,6 +234,7 @@ function errorJugada() {
 
 function manejarJugada() {
     bloquearCuadro();
+
     if (verduraJugada.length === 2) {
         bloquearTablero();
 

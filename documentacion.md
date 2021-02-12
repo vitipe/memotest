@@ -8,7 +8,7 @@
 
 
 ## TO-DO
-   
+
 1. 
 2. Agregar barrita de estado, verde cuando ganás (alerts en bootstrap)
 3. Que el sonido suene siempre y no solo cuando descubrís las verduras de manera lenta. 
@@ -16,6 +16,7 @@
 
 
 ## Realizado:
+
 - Como asignar imagenes random a los divs?
 - Al hacer click en una foto que se oculte
 - Que el tablero random se limite a hacer 8 verduras en pares ubicados random y que no se repitan verduras.
