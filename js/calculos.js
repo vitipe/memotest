@@ -23,7 +23,6 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
     berenjena2: "images/berenjena.jpg",
     lechuga2: "images/lechuga.jpg"
 }
-//let values = Object.values(VERDURAS);
 
 bloquearTablero();
 
@@ -33,8 +32,6 @@ document.querySelector('#boton-jugar').onclick = function() {
     desbloquearTablero();
     ocultarBotonJugar();
 }
-let values = Object.values(VERDURAS);
-bloquearTablero();
 
 document.querySelector('#boton-resetear').onclick = function() {
     resetearTablero();
@@ -70,7 +67,6 @@ function resetearReloj() {
         MINUTOS = 0;
         document.querySelector('#tiempo-juego').textContent = 'Tiempo: 00:00'
     }
-    
 }
 
 function resetearIntentos(){
@@ -146,7 +142,6 @@ function manejarInputUsuario(e) {
         $cuadrosEnJuego.push($imagenClickeada);
         manejarJugada();
     }
-    
 }
 
 function reproducirSonido() {
@@ -175,8 +170,6 @@ function generarTableroRandom() {
 
 function contadorTiempoJuego() {
     let $tiempoJuego = document.querySelector('#tiempo-juego');
-    // let SEGUNDOS = 0;
-    // let MINUTOS = 0;
 
     function sumarTiempo() { //Creo que quedó medio fiero pero anda
         if (CUADROS_TABLERO > 0) {
@@ -234,7 +227,6 @@ function errorJugada() {
 
 function manejarJugada() {
     bloquearCuadro();
-
     if (verduraJugada.length === 2) {
         bloquearTablero();
 
