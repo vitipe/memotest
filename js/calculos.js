@@ -3,6 +3,8 @@ let verduraJugada = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
+let SEGUNDOS = 0;
+let MINUTOS = 0;
 let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acumulando los que ya se jugaron en otra matriz
     tomate: "images/tomate.jpg",
     zapallo: "images/zapallo.jpg",
@@ -21,14 +23,49 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
     berenjena2: "images/berenjena.jpg",
     lechuga2: "images/lechuga.jpg"
 }
-let values = Object.values(VERDURAS);
+//let values = Object.values(VERDURAS);
 
 bloquearTablero();
 
 document.querySelector('#boton-jugar').onclick = function() {
+    resetearTablero();
     generarTableroRandom();
-    contadorTiempoJuego();
+    contadorTiempoJuego(SEGUNDOS, MINUTOS);
     desbloquearTablero();
+}
+
+function resetearTablero() {
+    CUADROS_TABLERO = 16;
+    resetearJugada();
+    borrarVerduras();
+    resetearReloj();
+    resetearIntentos();
+    resetearTitulo();
+}
+
+function resetearTitulo() {
+    document.querySelector('#titulo').textContent = "MEMOTEST"
+}
+
+function resetearReloj() {
+    SEGUNDOS = 0;
+    MINUTOS = 0;
+}
+
+function resetearIntentos(){
+    CONTADOR_INTENTOS = 0;
+    document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
+}
+
+function borrarVerduras() {  
+    let $cuadros = document.querySelectorAll('.cuadro');
+    let $verduras = document.querySelectorAll('img');
+
+    if ($verduras.length > 0) {
+        $cuadros.forEach(function($cuadro) {
+            $cuadro.removeChild($cuadro.firstChild)
+        })
+    }
 }
 
 function contadorIntentos() {
@@ -81,7 +118,7 @@ function ocultarCuadrosResueltos() {
 
 function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
-    
+    reproducirSonido();
     if (verduraJugada.length < 2) {
         mostrarImagenCuadro($imagenClickeada);
         verduraJugada.push($imagenClickeada.src);
@@ -91,7 +128,12 @@ function manejarInputUsuario(e) {
     
 }
 
-function obtenerVerduraAleatoria() {    
+function reproducirSonido() {
+    let sonido = document.querySelector('#sonido-click');
+    sonido.play();
+}
+
+function obtenerVerduraAleatoria(values) { 
     let numeroRandom = Math.floor(Math.random() * values.length)
     let verduraAleatoria = values.splice(numeroRandom, 1)
 
@@ -99,22 +141,21 @@ function obtenerVerduraAleatoria() {
 }
 
 function generarTableroRandom() {
+    let values = Object.values(VERDURAS); 
     let cuadrosTablero = document.querySelectorAll('.cuadro');
     cuadrosTablero.forEach(function(cuadro) {
         let imgVerdura = document.createElement('img');
-        imgVerdura.src = obtenerVerduraAleatoria();
+        imgVerdura.src = obtenerVerduraAleatoria(values);
         imgVerdura.className = 'img-fluid oculto';
         imgVerdura.draggable = false;
         cuadro.appendChild(imgVerdura);
     })
 }
 
-function contadorTiempoJuego() {
+function contadorTiempoJuego(SEGUNDOS, MINUTOS) {
     let $tiempoJuego = document.querySelector('#tiempo-juego');
-    let SEGUNDOS = 0;
-    let MINUTOS = 0;
 
-    function sumarSegundos() { //Creo que quedó medio fiero pero anda
+    function sumarTiempo() { //Creo que quedó medio fiero pero anda
         if (CUADROS_TABLERO > 0) {
             SEGUNDOS++;
             
@@ -134,7 +175,7 @@ function contadorTiempoJuego() {
             $tiempoJuego.textContent = `Tiempo: ${MINUTOS}:${SEGUNDOS}`
         }
     }
-    setInterval(sumarSegundos, 1000);
+    let contadorTiempo = setInterval(sumarTiempo, 1000);
 }
 
 function mostrarVictoria() {
@@ -146,6 +187,7 @@ function resetearJugada() {
     verduraJugada = [];
     $cuadrosEnJuego = [];
     desbloquearTablero();
+    
 }
 
 function aciertoJugada() {
@@ -174,9 +216,9 @@ function manejarJugada() {
         bloquearTablero();
 
         if (verduraJugada[0] === verduraJugada[1]){
-            setTimeout(aciertoJugada, 500);
+            setTimeout(aciertoJugada, 400);
         } else{
-            setTimeout(errorJugada, 500);
+            setTimeout(errorJugada, 400);
         }
     }
 }

@@ -12,12 +12,12 @@ nav {
 
 .oculto {
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.4s;
 }
 
 .en-juego {
     opacity: 100;
-    transition: opacity 0.5s;
+    transition: opacity 0.4s;
 }
 
 .img-fluid {
@@ -29,5 +29,5 @@ nav {
     height: 150px;
     width: 100%;
     opacity: 100;
-    transition: opacity, 0.5s;
+    transition: opacity, 0.4s;
 }
