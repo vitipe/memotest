@@ -1,11 +1,10 @@
-
 let verduraJugada = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let CUADROS_TABLERO = 16;
 let SEGUNDOS = 0;
 let MINUTOS = 0;
-let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acumulando los que ya se jugaron en otra matriz
+let VERDURAS = { //Ver como duplicarlo desde los 8 e ir acumulando los que ya se jugaron en otra matriz
     tomate: "images/tomate.jpg",
     zapallo: "images/zapallo.jpg",
     maiz: "images/maiz.jpg",
@@ -23,7 +22,6 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
     berenjena2: "images/berenjena.jpg",
     lechuga2: "images/lechuga.jpg"
 }
-//let values = Object.values(VERDURAS);
 
 bloquearTablero();
 
@@ -33,8 +31,6 @@ document.querySelector('#boton-jugar').onclick = function() {
     desbloquearTablero();
     ocultarBotonJugar();
 }
-let values = Object.values(VERDURAS);
-bloquearTablero();
 
 document.querySelector('#boton-resetear').onclick = function() {
     resetearTablero();
@@ -63,22 +59,21 @@ function resetearTitulo() {
 }
 
 function resetearReloj() {
-    
-    if (SEGUNDOS > 0){
+
+    if (SEGUNDOS > 0) {
         clearInterval(contadorTiempo);
         SEGUNDOS = 0;
         MINUTOS = 0;
         document.querySelector('#tiempo-juego').textContent = 'Tiempo: 00:00'
     }
-    
 }
 
-function resetearIntentos(){
+function resetearIntentos() {
     CONTADOR_INTENTOS = 0;
     document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
 }
 
-function borrarVerduras() {  
+function borrarVerduras() {
     let $cuadros = document.querySelectorAll('.cuadro');
     let $verduras = document.querySelectorAll('img');
 
@@ -95,14 +90,13 @@ function contadorIntentos() {
 
 function bloquearTablero() {
     document.querySelectorAll('.cuadro').forEach(function($cuadro) {
-        $cuadro.onclick = function() {
-        }
+        $cuadro.onclick = function() {}
     });
 };
 
 function bloquearCuadro() {
     document.querySelectorAll('.en-juego').forEach(function($cuadro) {
-        $cuadro.onclick = function () {
+        $cuadro.onclick = function() {
 
         };
     });
@@ -119,9 +113,9 @@ function mostrarImagenCuadro($imagenClickeada) {
 }
 
 function ocultarImagenCuadro() {
-    $cuadrosEnJuego.forEach(function($imagenClickeada){
+    $cuadrosEnJuego.forEach(function($imagenClickeada) {
         $imagenClickeada.className = "img-fluid oculto";
-        
+
     })
 }
 
@@ -132,7 +126,7 @@ function ocultarCuadrosResueltos() {
     })
     document.querySelectorAll('.cuadro-resuelto').forEach(function($cuadro) {
         $cuadro.onclick = function() {
-            
+
         }
     })
 }
@@ -146,7 +140,6 @@ function manejarInputUsuario(e) {
         $cuadrosEnJuego.push($imagenClickeada);
         manejarJugada();
     }
-    
 }
 
 function reproducirSonido() {
@@ -154,7 +147,7 @@ function reproducirSonido() {
     sonido.play();
 }
 
-function obtenerVerduraAleatoria(values) { 
+function obtenerVerduraAleatoria(values) {
     let numeroRandom = Math.floor(Math.random() * values.length)
     let verduraAleatoria = values.splice(numeroRandom, 1)
 
@@ -162,7 +155,7 @@ function obtenerVerduraAleatoria(values) {
 }
 
 function generarTableroRandom() {
-    let values = Object.values(VERDURAS); 
+    let values = Object.values(VERDURAS);
     let cuadrosTablero = document.querySelectorAll('.cuadro');
     cuadrosTablero.forEach(function(cuadro) {
         let imgVerdura = document.createElement('img');
@@ -175,26 +168,24 @@ function generarTableroRandom() {
 
 function contadorTiempoJuego() {
     let $tiempoJuego = document.querySelector('#tiempo-juego');
-    // let SEGUNDOS = 0;
-    // let MINUTOS = 0;
 
     function sumarTiempo() { //Creo que quedó medio fiero pero anda
         if (CUADROS_TABLERO > 0) {
             SEGUNDOS++;
-            
+
             if (SEGUNDOS === 60) {
                 SEGUNDOS = 0;
                 MINUTOS++;
             }
-            
+
             if (SEGUNDOS.toString().length === 1) {
                 SEGUNDOS = `0${SEGUNDOS}`
             }
-    
+
             if (MINUTOS.toString().length === 1) {
                 MINUTOS = `0${MINUTOS}`
             }
-    
+
             $tiempoJuego.textContent = `Tiempo: ${MINUTOS}:${SEGUNDOS}`
         }
     }
@@ -216,8 +207,8 @@ function aciertoJugada() {
     ocultarCuadrosResueltos();
     CONTADOR_INTENTOS++;
     CUADROS_TABLERO = CUADROS_TABLERO - 2;
-    
-    if (CUADROS_TABLERO === 0){
+
+    if (CUADROS_TABLERO === 0) {
         mostrarVictoria();
     }
 
@@ -234,13 +225,12 @@ function errorJugada() {
 
 function manejarJugada() {
     bloquearCuadro();
-
     if (verduraJugada.length === 2) {
         bloquearTablero();
 
-        if (verduraJugada[0] === verduraJugada[1]){
+        if (verduraJugada[0] === verduraJugada[1]) {
             setTimeout(aciertoJugada, 400);
-        } else{
+        } else {
             setTimeout(errorJugada, 400);
         }
     }
