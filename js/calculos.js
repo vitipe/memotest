@@ -28,10 +28,14 @@ let VERDURAS = {                      //Ver como duplicarlo desde los 8 e ir acu
 bloquearTablero();
 
 document.querySelector('#boton-jugar').onclick = function() {
-    resetearTablero();
     generarTableroRandom();
-    contadorTiempoJuego(SEGUNDOS, MINUTOS);
+    contadorTiempoJuego();
     desbloquearTablero();
+    ocultarBotonJugar();
+}
+
+document.querySelector('#boton-resetear').onclick = function() {
+    resetearTablero();
 }
 
 function resetearTablero() {
@@ -41,6 +45,15 @@ function resetearTablero() {
     resetearReloj();
     resetearIntentos();
     resetearTitulo();
+    habilitarBotonJugar();
+}
+
+function ocultarBotonJugar() {
+    document.querySelector('#boton-jugar').disabled = true;
+}
+
+function habilitarBotonJugar() {
+    document.querySelector('#boton-jugar').disabled = false;
 }
 
 function resetearTitulo() {
@@ -48,8 +61,14 @@ function resetearTitulo() {
 }
 
 function resetearReloj() {
-    SEGUNDOS = 0;
-    MINUTOS = 0;
+    
+    if (SEGUNDOS > 0){
+        clearInterval(contadorTiempo);
+        SEGUNDOS = 0;
+        MINUTOS = 0;
+        document.querySelector('#tiempo-juego').textContent = 'Tiempo: 00:00'
+    }
+    
 }
 
 function resetearIntentos(){
@@ -152,8 +171,10 @@ function generarTableroRandom() {
     })
 }
 
-function contadorTiempoJuego(SEGUNDOS, MINUTOS) {
+function contadorTiempoJuego() {
     let $tiempoJuego = document.querySelector('#tiempo-juego');
+    // let SEGUNDOS = 0;
+    // let MINUTOS = 0;
 
     function sumarTiempo() { //Creo que quedó medio fiero pero anda
         if (CUADROS_TABLERO > 0) {
@@ -175,7 +196,7 @@ function contadorTiempoJuego(SEGUNDOS, MINUTOS) {
             $tiempoJuego.textContent = `Tiempo: ${MINUTOS}:${SEGUNDOS}`
         }
     }
-    let contadorTiempo = setInterval(sumarTiempo, 1000);
+    return contadorTiempo = setInterval(sumarTiempo, 1000);
 }
 
 function mostrarVictoria() {
