@@ -9,7 +9,7 @@
 
 ## TO-DO
    
-1. Resetear el reloj (primero apagar el intervalo e iniciarlo de nuevo)
+1. 
 2. Agregar barrita de estado, verde cuando ganás (alerts en bootstrap)
 3. Que el sonido suene siempre y no solo cuando descubrís las verduras de manera lenta. 
 
@@ -28,4 +28,4 @@
 - Si descubrís dos imagenes acertadas y clickeas rápido ponés más como acertadas. Arreglar eso. Lo mismo si no acertás. Es el setTimeout Seguro.
 - Sonido al hacer click en imagen
 - Que no asigne mas imagenes que los cuadros que hay, o directamente hacer desaperecer el boton jugar (ver que los hace invisibles)
-- 
+- Resetear el reloj (primero apagar el intervalo e iniciarlo de nuevo)
