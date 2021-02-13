@@ -10,7 +10,7 @@
 ## TO-DO
    
 1. 
-2. Agregar barrita de estado, verde cuando ganás (alerts en bootstrap)
+2. 
 3. Que el sonido suene siempre y no solo cuando descubrís las verduras de manera lenta. 
 
 
@@ -29,3 +29,4 @@
 - Sonido al hacer click en imagen
 - Que no asigne mas imagenes que los cuadros que hay, o directamente hacer desaperecer el boton jugar (ver que los hace invisibles)
 - Resetear el reloj (primero apagar el intervalo e iniciarlo de nuevo)
+- Agregar barrita de estado, verde cuando ganás (alerts en bootstrap) (al final fue violeta)
