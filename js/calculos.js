@@ -234,6 +234,7 @@ function errorJugada() {
 
 function manejarJugada() {
     bloquearCuadro();
+    
     if (verduraJugada.length === 2) {
         bloquearTablero();
 
