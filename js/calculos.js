@@ -4,24 +4,10 @@ let CONTADOR_INTENTOS = 0;
 let $verdurasTablero = 16;
 let SEGUNDOS = 0;
 let MINUTOS = 0;
-let VERDURAS = { //Ver como duplicarlo desde los 8 e ir acumulando los que ya se jugaron en otra matriz
-    tomate: "images/tomate.jpg",
-    zapallo: "images/zapallo.jpg",
-    maiz: "images/maiz.jpg",
-    acelga: "images/acelga.jpg",
-    albahaca: "images/albahaca.jpg",
-    morron: "images/morron.jpg",
-    berenjena: "images/berenjena.jpg",
-    lechuga: "images/lechuga.jpg",
-    tomate2: "images/tomate.jpg",
-    zapallo2: "images/zapallo.jpg",
-    maiz2: "images/maiz.jpg",
-    acelga2: "images/acelga.jpg",
-    albahaca2: "images/albahaca.jpg",
-    morron2: "images/morron.jpg",
-    berenjena2: "images/berenjena.jpg",
-    lechuga2: "images/lechuga.jpg"
-}
+let VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", "images/acelga.jpg", "images/albahaca.jpg", 
+                "images/morron.jpg", "images/berenjena.jpg", "images/lechuga.jpg"]
+
+
 
 bloquearTablero();
 
@@ -34,6 +20,16 @@ document.querySelector('#boton-jugar').onclick = function() {
 
 document.querySelector('#boton-resetear').onclick = function() {
     resetearTablero();
+}
+
+function duplicaVerduras() {
+    let verdurasDuplicadas = [];
+
+    for (let i = 0; i < VERDURAS.length; i++) {
+        verdurasDuplicadas.push(VERDURAS[i]);
+        verdurasDuplicadas.push(VERDURAS[i]);
+    };
+    return verdurasDuplicadas;
 }
 
 function resetearTablero() {
@@ -153,19 +149,19 @@ function reproducirSonido() {
     sonido.play();
 }
 
-function obtenerVerduraAleatoria(values) {
-    let numeroRandom = Math.floor(Math.random() * values.length)
-    let verduraAleatoria = values.splice(numeroRandom, 1)
+function obtenerVerduraAleatoria($verduras) {
+    let numeroRandom = Math.floor(Math.random() * $verduras.length)
+    let verduraAleatoria = $verduras.splice(numeroRandom, 1)
 
     return verduraAleatoria
 }
 
 function generarTableroRandom() {
-    let values = Object.values(VERDURAS);
+    let $verduras = duplicaVerduras();
     let $cuadrosTablero = document.querySelectorAll('.cuadro');
     $cuadrosTablero.forEach(function($cuadro) {
         let imgVerdura = document.createElement('img');
-        imgVerdura.src = obtenerVerduraAleatoria(values);
+        imgVerdura.src = obtenerVerduraAleatoria($verduras);
         imgVerdura.className = 'img-fluid oculto';
         imgVerdura.draggable = false;
         $cuadro.appendChild(imgVerdura);
@@ -234,6 +230,7 @@ function errorJugada() {
 
 function manejarJugada() {
     bloquearCuadro();
+
     if (verduraJugada.length === 2) {
         bloquearTablero();
 
