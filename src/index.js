@@ -4,31 +4,15 @@ let CONTADOR_INTENTOS = 0;
 let $verdurasTablero = 16;
 let SEGUNDOS = 0;
 let MINUTOS = 0;
-let VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", "images/acelga.jpg", "images/albahaca.jpg", 
+const VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", "images/acelga.jpg", "images/albahaca.jpg", 
                 "images/morron.jpg", "images/berenjena.jpg", "images/lechuga.jpg"]
 
-
-
-bloquearTablero();
-
-document.querySelector('#boton-jugar').onclick = function() {
-    generarTableroRandom();
-    contadorTiempoJuego();
-    desbloquearTablero();
-    deshabilitarBotonJugar();
-}
-
-document.querySelector('#boton-resetear').onclick = function() {
-    resetearTablero();
-}
-
 function duplicaVerduras() {
-    let verdurasDuplicadas = [];
+    let verdurasDuplicadas = VERDURAS.concat(VERDURAS);
 
-    for (let i = 0; i < VERDURAS.length; i++) {
-        verdurasDuplicadas.push(VERDURAS[i]);
-        verdurasDuplicadas.push(VERDURAS[i]);
-    };
+    /*
+    Yo había hecho un for con doble push del valor en i de VERDURAS
+    */
     return verdurasDuplicadas;
 }
 
@@ -38,7 +22,6 @@ function resetearTablero() {
     borrarVerduras();
     resetearReloj();
     resetearIntentos();
-    resetearTitulo();
     habilitarBotonJugar();
     resetearNav();
 }
@@ -46,6 +29,7 @@ function resetearTablero() {
 function resetearNav() {
     document.querySelector("nav").className = "navbar navbar-light bg-light";
     document.querySelector("nav").style.backgroundColor = '';
+    document.querySelector('#titulo').textContent = "MEMOTEST";
 }
 
 function deshabilitarBotonJugar() {
@@ -54,10 +38,6 @@ function deshabilitarBotonJugar() {
 
 function habilitarBotonJugar() {
     document.querySelector('#boton-jugar').disabled = false;
-}
-
-function resetearTitulo() {
-    document.querySelector('#titulo').textContent = "MEMOTEST"
 }
 
 function resetearReloj() {
@@ -86,7 +66,7 @@ function borrarVerduras() {
     }
 }
 
-function contadorIntentos() {
+function actualizarIntentos() {
     document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
 }
 
@@ -217,14 +197,14 @@ function aciertoJugada() {
         mostrarVictoria();
     }
 
-    contadorIntentos();
+    actualizarIntentos();
     resetearJugada();
 }
 
 function errorJugada() {
     ocultarImagenCuadro();
     CONTADOR_INTENTOS++;
-    contadorIntentos();
+    actualizarIntentos();
     resetearJugada();
 }
 
@@ -240,4 +220,17 @@ function manejarJugada() {
             setTimeout(errorJugada, 400);
         }
     }
+}
+
+bloquearTablero();
+
+document.querySelector('#boton-jugar').onclick = function() {
+    generarTableroRandom();
+    contadorTiempoJuego();
+    desbloquearTablero();
+    deshabilitarBotonJugar();
+}
+
+document.querySelector('#boton-resetear').onclick = function() {
+    resetearTablero();
 }
