@@ -11,8 +11,9 @@ function duplicaVerduras() {
     let verdurasDuplicadas = VERDURAS.concat(VERDURAS);
 
     /*
-    Yo había hecho un for con doble push del valor en i de VERDURAS
+    Yo había hecho un for en un array nuevo con doble push del valor en i de VERDURAS
     */
+
     return verdurasDuplicadas;
 }
 
@@ -22,8 +23,8 @@ function resetearTablero() {
     borrarVerduras();
     resetearReloj();
     resetearIntentos();
-    habilitarBotonJugar();
     resetearNav();
+    habilitarBotonJugar();
 }
 
 function resetearNav() {
@@ -41,13 +42,10 @@ function habilitarBotonJugar() {
 }
 
 function resetearReloj() {
-
-    if (SEGUNDOS > 0) {
-        clearInterval(contadorTiempo);
-        SEGUNDOS = 0;
-        MINUTOS = 0;
-        document.querySelector('#tiempo-juego').textContent = 'Tiempo: 00:00'
-    }
+    clearInterval(contadorTiempo);
+    SEGUNDOS = 0;
+    MINUTOS = 0;
+    document.querySelector('#tiempo-juego').textContent = 'Tiempo: 00:00'
 }
 
 function resetearIntentos() {
