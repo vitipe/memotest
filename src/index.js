@@ -8,11 +8,7 @@ const VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", 
 
 function duplicaVerduras() {
     let verdurasDuplicadas = VERDURAS.concat(VERDURAS);
-
-    /*
-    Yo había hecho un for en un array nuevo con doble push del valor en i de VERDURAS
-    */
-
+    
     return verdurasDuplicadas;
 }
 
