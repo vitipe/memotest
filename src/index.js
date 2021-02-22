@@ -17,7 +17,6 @@ function duplicaVerduras() {
 }
 
 function resetearTablero() {
-    $verdurasTablero = 16;
     resetearJugada();
     borrarVerduras();
     resetearReloj();
@@ -148,7 +147,7 @@ function iniciarTiempoJuego() {
     const $tiempoJuego = document.querySelector('#tiempo-juego');
 
     function sumarTiempo() {
-        if ($verdurasTablero > 0) {
+        if (document.querySelectorAll('.cuadro-resuelto').length < 16) {
             SEGUNDOS++;
 
             if (SEGUNDOS === 60) {
