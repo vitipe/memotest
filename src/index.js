@@ -50,14 +50,14 @@ function resetearReloj() {
 
 function resetearIntentos() {
     CONTADOR_INTENTOS = 0;
-    document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
+    document.querySelector('#cantidad-intentos').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
 }
 
 function borrarVerduras() {
     let $cuadros = document.querySelectorAll('.cuadro');
     let $verduras = document.querySelectorAll('img');
 
-    if ($verduras.length > 0) {
+    if ($verduras) {
         $cuadros.forEach(function($cuadro) {
             $cuadro.removeChild($cuadro.firstChild)
         })
@@ -65,7 +65,7 @@ function borrarVerduras() {
 }
 
 function actualizarIntentos() {
-    document.querySelector('#intentos-totales').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
+    document.querySelector('#cantidad-intentos').textContent = `Cantidad de intentos: ${CONTADOR_INTENTOS}`;
 }
 
 function bloquearTablero() {
@@ -74,10 +74,9 @@ function bloquearTablero() {
     });
 };
 
-function bloquearCuadro() {
+function bloquearCuadroJugado() {
     document.querySelectorAll('.en-juego').forEach(function($cuadro) {
         $cuadro.onclick = function() {
-
         };
     });
 };
@@ -113,7 +112,7 @@ function ocultarCuadrosResueltos() {
 
 function manejarInputUsuario(e) {
     $imagenClickeada = e.target;
-    reproducirSonido();
+    reproducirSonidoClick();
     if (verduraJugada.length < 2) {
         mostrarImagenCuadro($imagenClickeada);
         verduraJugada.push($imagenClickeada.src);
@@ -122,7 +121,7 @@ function manejarInputUsuario(e) {
     }
 }
 
-function reproducirSonido() {
+function reproducirSonidoClick() {
     let sonido = document.querySelector('#sonido-click');
     sonido.play();
 }
@@ -146,7 +145,7 @@ function generarTableroRandom() {
     });
 }
 
-function contadorTiempoJuego() {
+function iniciarTiempoJuego() {
     let $tiempoJuego = document.querySelector('#tiempo-juego');
 
     function sumarTiempo() {
@@ -207,7 +206,7 @@ function errorJugada() {
 }
 
 function manejarJugada() {
-    bloquearCuadro();
+    bloquearCuadroJugado();
 
     if (verduraJugada.length === 2) {
         bloquearTablero();
@@ -224,7 +223,7 @@ bloquearTablero();
 
 document.querySelector('#boton-jugar').onclick = function() {
     generarTableroRandom();
-    contadorTiempoJuego();
+    iniciarTiempoJuego();
     desbloquearTablero();
     deshabilitarBotonJugar();
 }
