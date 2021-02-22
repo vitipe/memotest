@@ -54,8 +54,8 @@ function resetearIntentos() {
 }
 
 function borrarVerduras() {
-    let $cuadros = document.querySelectorAll('.cuadro');
-    let $verduras = document.querySelectorAll('img');
+    const $cuadros = document.querySelectorAll('.cuadro');
+    const $verduras = document.querySelectorAll('img');
 
     if ($verduras) {
         $cuadros.forEach(function($cuadro) {
@@ -122,8 +122,8 @@ function manejarInputUsuario(e) {
 }
 
 function reproducirSonidoClick() {
-    let sonido = document.querySelector('#sonido-click');
-    sonido.play();
+    const $sonido = document.querySelector('#sonido-click');
+    $sonido.play();
 }
 
 function obtenerVerduraAleatoria($verduras) {
@@ -135,7 +135,7 @@ function obtenerVerduraAleatoria($verduras) {
 
 function generarTableroRandom() {
     let $verduras = duplicaVerduras();
-    let $cuadrosTablero = document.querySelectorAll('.cuadro');
+    const $cuadrosTablero = document.querySelectorAll('.cuadro');
     $cuadrosTablero.forEach(function($cuadro) {
         let imgVerdura = document.createElement('img');
         imgVerdura.src = obtenerVerduraAleatoria($verduras);
@@ -146,7 +146,7 @@ function generarTableroRandom() {
 }
 
 function iniciarTiempoJuego() {
-    let $tiempoJuego = document.querySelector('#tiempo-juego');
+    const $tiempoJuego = document.querySelector('#tiempo-juego');
 
     function sumarTiempo() {
         if ($verdurasTablero > 0) {

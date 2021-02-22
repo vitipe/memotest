@@ -35,10 +35,11 @@
 1. 
 2. Hacer .remove() y eliminar los elements en vez de el acumulador?
 3. Ver lo de ease en opacity del css y cursor: pointer.
-4. Agregar const en vez de let donde se pueda
+4. 
 5. Probar armar lo del eventBubbling con el event?
 
 ## Realizado (vista la clase 11)
 
 1. Installar http-server
 2. Hacer responsive con la altura de las columnas también y el sizing en vh, y poniendo el h-100 a los cuadros.
+3. Agregar const en vez de let donde se pueda
