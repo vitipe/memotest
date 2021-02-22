@@ -1,7 +1,6 @@
 let verduraJugada = [];
 let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
-let $verdurasTablero = 16;
 let SEGUNDOS = 0;
 let MINUTOS = 0;
 const VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", "images/acelga.jpg", "images/albahaca.jpg", 
@@ -188,9 +187,8 @@ function resetearJugada() {
 function aciertoJugada() {
     ocultarCuadrosResueltos();
     CONTADOR_INTENTOS++;
-    $verdurasTablero = $verdurasTablero - 2;
 
-    if ($verdurasTablero === 0) {
+    if (document.querySelectorAll('.cuadro-resuelto').length === 16) {
         mostrarVictoria();
     }
 
