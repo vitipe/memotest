@@ -128,11 +128,11 @@ function obtenerVerduraAleatoria($verduras) {
 }
 
 function generarTableroRandom() {
-    let $verduras = duplicaVerduras();
+    let verdurasJuego = duplicaVerduras();
     const $cuadrosTablero = document.querySelectorAll('.cuadro');
     $cuadrosTablero.forEach(function($cuadro) {
         let imgVerdura = document.createElement('img');
-        imgVerdura.src = obtenerVerduraAleatoria($verduras);
+        imgVerdura.src = obtenerVerduraAleatoria(verdurasJuego);
         imgVerdura.className = 'img-fluid oculto';
         imgVerdura.draggable = false;
         $cuadro.appendChild(imgVerdura);
