@@ -3,7 +3,7 @@ let $cuadrosEnJuego = [];
 let CONTADOR_INTENTOS = 0;
 let SEGUNDOS = 0;
 let MINUTOS = 0;
-const VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/maiz.jpg", "images/acelga.jpg", "images/albahaca.jpg", 
+const VERDURAS = ["images/tomate.jpg", "images/zapallo.jpg", "images/frutilla.jpg", "images/higo.jpg", "images/albahaca.jpg", 
                 "images/morron.jpg", "images/berenjena.jpg", "images/lechuga.jpg"]
 
 function duplicaVerduras() {
